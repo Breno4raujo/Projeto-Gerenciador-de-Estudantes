@@ -113,14 +113,21 @@ function mediaGeral() {
   console.log(` Média geral da turma: ${media.toFixed(2)}`);
 }
 
-// 7. Melhor estudante
+// 7. Melhores estudantes
 function melhorEstudante() {
-  if (estudantes.length === 0) return console.log("Nenhum estudante cadastrado.");
-  const comMedia = estudantes.map(e => ({ ...e, media: calcularMedia(e.notas) }));
-  const melhor = comMedia.reduce((prev, curr) => (curr.media > prev.media ? curr : prev));
-  console.log(` Melhor estudante: ${melhor.nome} (Média: ${melhor.media.toFixed(2)})`);
-}
+  if (estudantes.length === 0) {
+    return console.log("Nenhum estudante cadastrado.");
+  }
 
+  const comMedia = estudantes.map(e => ({ ...e, media: calcularMedia(e.notas) }));
+
+  const melhorMedia = comMedia.reduce((max, e) => e.media > max ? e.media : max, 0);
+  const melhores = comMedia.filter(e => e.media === melhorMedia);
+
+  melhores.forEach(e => {
+    console.log(`Melhor estudante: ${e.nome} (Média: ${e.media.toFixed(2)})`);
+  });
+}
 // 8. Relatórios
 function relatorios() {
   const comMedia = estudantes.map(e => ({ ...e, media: calcularMedia(e.notas) }));
