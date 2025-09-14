@@ -29,7 +29,8 @@ function cadastrarEstudante() {
   console.log("Digite as 4 notas dos bimestres (máx. 10 cada):");
   let notas = [];
   for (let i = 1; i <= 4; i++) {
-    const nota = Number(question(`Nota do ${i}º bimestre: `));
+    const notaStr = question(`Nota do ${i}º bimestre: `).replace(",", ".");
+    const nota = Number(notaStr);
     if (isNaN(nota) || nota < 0 || nota > 10) {
       return console.log(" Cada nota deve estar entre 0 e 10.");
     }
@@ -59,9 +60,9 @@ function editarEstudante() {
 
   console.log("Digite as novas notas (ou enter para manter a atual):");
   estudante.notas = estudante.notas.map((nota, i) => {
-    const novaNota = question(`Nota do ${i + 1}º bimestre (atual: ${nota}): `).trim();
-    return novaNota ? Number(novaNota) : nota;
-  });
+  const novaNotaStr = question(`Nota do ${i + 1}º bimestre (atual: ${nota}): `).trim().replace(",", ".");
+  return novaNotaStr ? Number(novaNotaStr) : nota;
+});
 
   console.log(" Estudante atualizado com sucesso!");
 }
